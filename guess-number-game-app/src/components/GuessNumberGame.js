@@ -7,8 +7,8 @@ import { guessNumberGameReducer, initialGameState } from "../reducers/guessNumbe
 // }
 
 function GuessNumberGame() {
-    const [state, dispatch] = useReducer(guessNumberGameReducer, initialGameState);
-    const {number, guess, pastGuesses, message, gameOver} = state;
+    const [gameState, dispatch] = useReducer(guessNumberGameReducer, initialGameState);
+    const {number, guess, pastGuesses, message, gameOver} = gameState;
 
     const guessChangeHandler = (e) => {
         dispatch({ type: "CHANGE_GUESS", payload: e.target.value });
