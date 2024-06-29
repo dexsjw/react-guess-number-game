@@ -3,7 +3,7 @@ import GuessNumberGame from './components/GuessNumberGame';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <GuessNumberGame />
     </div>
   );

@@ -3,7 +3,8 @@ export const initialGameState = {
     guess: "",
     pastGuesses: [],
     message: "Start guessing",
-    gameOver: false
+    gameOver: false,
+    score: 10
 }
 
 function getRandomNumber() {
@@ -22,13 +23,16 @@ export const guessNumberGameReducer = (state, action) => {
 
         case "CHECK_GUESS": {
             const newState = {...state}
-            if (newState.guess === newState.number) {
+            // Number casting
+            // 1. Number(newState.guess)
+            // 2. Using +
+            if (+newState.guess === newState.number) {
                 newState.message = `You got it! The answer is ${newState.guess}`;
                 newState.gameOver = true;
                 return newState;
             }
             
-            newState.pastGuesses.push(newState.guess);
+            newState.pastGuesses = [...state.pastGuesses, newState.guess];
 
             if (newState.guess > newState.number) newState.message = `${newState.guess} is too big!`;
             else if (newState.guess > newState.number) newState.message = `${newState.guess} is too small!`;
