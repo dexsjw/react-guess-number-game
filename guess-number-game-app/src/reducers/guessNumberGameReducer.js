@@ -4,7 +4,7 @@ export const initialGameState = {
     pastGuesses: [],
     message: "Start guessing",
     gameOver: false,
-    score: 10
+    score: 5
 }
 
 function getRandomNumber() {
@@ -33,9 +33,17 @@ export const guessNumberGameReducer = (state, action) => {
             }
             
             newState.pastGuesses = [...state.pastGuesses, newState.guess];
+            newState.score -= 1;
+
+            if (newState.score <= 0) {
+                newState.score = 0;
+                newState.gameOver = true;
+                newState.message = "Game over... Please try again!"
+                return newState;
+            }
 
             if (newState.guess > newState.number) newState.message = `${newState.guess} is too big!`;
-            else if (newState.guess > newState.number) newState.message = `${newState.guess} is too small!`;
+            else if (newState.guess < newState.number) newState.message = `${newState.guess} is too small!`;
 
             newState.guess = "";
 
@@ -43,6 +51,8 @@ export const guessNumberGameReducer = (state, action) => {
         }
 
         case "NEW_GAME": {
+            console.log("gameOver", state.gameOver)
+            action.scoreHandler(state.gameOver, state.score);
             return {
                 ...initialGameState,
                 number: getRandomNumber()

@@ -1,10 +1,13 @@
 import './App.css';
 import GuessNumberGame from './components/GuessNumberGame';
+import { ScoreHistoryContextProvider } from './context/ScoreHistoryContext';
 
 function App() {
   return (
     <div>
-      <GuessNumberGame />
+      <ScoreHistoryContextProvider>
+        <GuessNumberGame />
+      </ScoreHistoryContextProvider>
     </div>
   );
 }

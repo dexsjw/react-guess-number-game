@@ -1,5 +1,6 @@
-import { useReducer } from "react";
+import { useContext, useReducer } from "react";
 import { guessNumberGameReducer, initialGameState } from "../reducers/guessNumberGameReducer";
+import { ScoreHistoryContext } from "../context/ScoreHistoryContext";
 
 // function getRandomNumber() {
 //   console.log("getRandomNumber called");
@@ -7,20 +8,24 @@ import { guessNumberGameReducer, initialGameState } from "../reducers/guessNumbe
 // }
 
 function GuessNumberGame() {
-    const [gameState, dispatch] = useReducer(guessNumberGameReducer, initialGameState);
-    const {number, guess, pastGuesses, message, gameOver} = gameState;
+  const scoreHistoryCtx = useContext(ScoreHistoryContext);
+  const {scoreHandler} = scoreHistoryCtx;
 
-    const guessChangeHandler = (e) => {
-        dispatch({ type: "CHANGE_GUESS", payload: e.target.value });
-    }
+  const [gameState, dispatch] = useReducer(guessNumberGameReducer, initialGameState);
+  const {number, guess, pastGuesses, message, gameOver, score} = gameState;
 
-    const guessHandler = () => {
-        dispatch({ type: "CHECK_GUESS" })
-    }
+  const guessChangeHandler = (e) => {
+    dispatch({ type: "CHANGE_GUESS", payload: e.target.value });
+  }
 
-    const newGameHandler = () => {
-        dispatch({ type: "NEW_GAME" })
-    }
+  const guessHandler = () => {
+    dispatch({ type: "CHECK_GUESS" });
+  }
+
+  const newGameHandler = () => {
+    // scoreHandler();
+    dispatch({ type: "NEW_GAME", scoreHandler });
+  }
 
 
 //   // lazy initialization
@@ -69,6 +74,7 @@ function GuessNumberGame() {
   return (
     <div>
       <h1>Guess Number Game</h1>
+      <h2>Score: {score}</h2>
       <p>Guess a number between 1 and 20.</p>
       <div
         style={{
@@ -95,6 +101,7 @@ function GuessNumberGame() {
         </button>
       </div>
       <p>{message}</p>
+      <p>Answer: {number}</p>
       <div className="guesses-container">
         {pastGuesses.map((pastGuess, i) => (
           <span key={i} className="guesses-number">
