@@ -1,5 +1,4 @@
-import { createContext, useReducer, useState } from "react";
-import { guessNumberGameReducer, initialGameState } from "../reducers/guessNumberGameReducer";
+import { createContext, useState } from "react";
 
 export const ScoreHistoryContext = createContext({
     pastScores: [],
@@ -12,12 +11,14 @@ export function ScoreHistoryContextProvider({children}) {
     // const {gameOver, score} = gameState;
     const [pastScores, setPastScores] = useState([]);
 
-    const scoreHandler = (gameOver, score) => {
-        console.log("setting past scores", pastScores);
-        console.log("gameOver", gameOver);
-        if (gameOver) {
-            setPastScores(prevPastScores => [...prevPastScores, score]);
-        }
+    const scoreHandler = (score) => {
+        setPastScores(prevPastScores => [...prevPastScores, score]);
+
+        // console.log("setting past scores", pastScores);
+        // console.log("gameOver", gameOver);
+        // if (gameOver) {
+        //     setPastScores(prevPastScores => [...prevPastScores, score]);
+        // }
     }
 
     const contextValue = {pastScores, scoreHandler};

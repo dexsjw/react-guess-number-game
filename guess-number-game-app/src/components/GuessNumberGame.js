@@ -1,6 +1,7 @@
 import { useContext, useReducer } from "react";
 import { guessNumberGameReducer, initialGameState } from "../reducers/guessNumberGameReducer";
 import { ScoreHistoryContext } from "../context/ScoreHistoryContext";
+import ScoreHistory from "./ScoreHistory";
 
 // function getRandomNumber() {
 //   console.log("getRandomNumber called");
@@ -23,8 +24,12 @@ function GuessNumberGame() {
   }
 
   const newGameHandler = () => {
-    // scoreHandler();
-    dispatch({ type: "NEW_GAME", scoreHandler });
+    if (gameOver) {
+      scoreHandler(score);
+      // why can't we directly call the setter function?
+    }
+    // dispatch({ type: "NEW_GAME", scoreHandler });
+    dispatch({ type: "NEW_GAME" });
   }
 
 
@@ -109,6 +114,7 @@ function GuessNumberGame() {
           </span>
         ))}
       </div>
+      <ScoreHistory />
     </div>
   );
 }
