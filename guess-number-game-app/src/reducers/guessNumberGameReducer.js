@@ -4,7 +4,7 @@ export const initialGameState = {
     pastGuesses: [],
     message: "Start guessing",
     gameOver: false,
-    score: 5
+    score: 10
 }
 
 function getRandomNumber() {
@@ -15,10 +15,13 @@ function getRandomNumber() {
 export const guessNumberGameReducer = (state, action) => {
     switch (action.type) {
         case "CHANGE_GUESS": {
-            return {
-                ...state,
-                guess: Number(action.payload)
-            };
+            const newState = {...state};
+            if (Number.isNaN(Number(action.payload))) {
+                newState.message = "Please only input numbers!"
+                return newState;
+            }
+            newState.guess = Number(action.payload)
+            return newState;
         }
 
         case "CHECK_GUESS": {
@@ -32,6 +35,13 @@ export const guessNumberGameReducer = (state, action) => {
                 return newState;
             }
             
+            if (newState.guess < 1 || newState.guess > 20) {
+                newState.message = "Please input numbers between 1 and 20 only!"
+                newState.guess = "";
+                return newState;
+            } else if (newState.guess > newState.number) newState.message = `${newState.guess} is too big!`;
+            else if (newState.guess < newState.number) newState.message = `${newState.guess} is too small!`;
+
             newState.pastGuesses = [...state.pastGuesses, newState.guess];
             newState.score -= 1;
 
@@ -42,17 +52,13 @@ export const guessNumberGameReducer = (state, action) => {
                 return newState;
             }
 
-            if (newState.guess > newState.number) newState.message = `${newState.guess} is too big!`;
-            else if (newState.guess < newState.number) newState.message = `${newState.guess} is too small!`;
-
             newState.guess = "";
 
             return newState;
         }
 
         case "NEW_GAME": {
-            console.log("gameOver", state.gameOver)
-            action.scoreHandler(state.gameOver, state.score);
+            // action.scoreHandler(state.gameOver, state.score);
             return {
                 ...initialGameState,
                 number: getRandomNumber()
