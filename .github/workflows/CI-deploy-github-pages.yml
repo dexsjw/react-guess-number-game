@@ -36,7 +36,7 @@ jobs:
           echo test, and deploy your project.
 
       - name: cd into app folder
-        run: cd .\guess-number-game-app
+        run: cd ./guess-number-game-app
 
       - name: Setup node
         uses: actions/setup-node@v4
