@@ -24,6 +24,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
@@ -36,15 +39,16 @@ jobs:
           echo test, and deploy your project.
 
       - name: cd into app folder
-        run: cd ./guess-number-game-app
-
-      - name: Setup node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+        run: |
+          pwd
+          cd ./guess-number-game-app
 
       - name: Start app
-        run: npm run build
+        run: |
+          pwd
+          npm run build
 
       - name: Serve app build
-        run: npx serve build
+        run: |
+          pwd
+          npx serve build
