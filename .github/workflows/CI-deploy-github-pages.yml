@@ -38,14 +38,15 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
 
-      - name: cd into app folder
-        run: cd ./guess-number-game-app/
+      #- name: cd into app folder
+       # run: cd ./guess-number-game-app/
 
       - name: Start app
         run: |
           pwd
           cd ./guess-number-game-app/
           pwd
+          npm i
           npm run build
 
       - name: Serve app build
