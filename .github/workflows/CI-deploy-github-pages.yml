@@ -55,8 +55,6 @@ jobs:
         working-directory: ./guess-number-game-app
         run: |
           pwd
-          cd ./guess-number-game-app/
-          pwd
           npm ci
           npm run build
 
