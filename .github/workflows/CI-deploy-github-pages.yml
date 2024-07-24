@@ -22,10 +22,10 @@ jobs:
     runs-on: ubuntu-latest
 
     # Setting default directory to run commands
-    defaults:
-      run:
-        shell: bash # not compulsory
-        working-directory: ./guess-number-game-app
+    # defaults:
+    #   run:
+    #     shell: bash # not compulsory
+    #     working-directory: ./guess-number-game-app
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
