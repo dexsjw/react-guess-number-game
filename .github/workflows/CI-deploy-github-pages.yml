@@ -31,6 +31,7 @@ jobs:
     permissions:
       id-token: write
       pages: write
+      # contents: read / write # not compulsory
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -43,21 +44,21 @@ jobs:
           node-version: '20'
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Deploying guess-number-game-app to GitHub Pages
+      # - name: Run a one-line script
+      #   run: echo Deploying guess-number-game-app to GitHub Pages
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      # - name: Run a multi-line script
+      #   run: |
+      #     echo Add other actions to build,
+      #     echo test, and deploy your project.
 
       #- name: cd into app folder
        # run: cd ./guess-number-game-app/
 
       - name: Install dependencies and build
         # Defining the directory to run commands in this step
-        # working-directory: ./guess-number-game-app
+        # working-directory: ./guess-number-game-app # can use this if "defaults" is not set
         run: |
           pwd
           npm ci
@@ -69,21 +70,24 @@ jobs:
           path: ./guess-number-game-app/build
 
 
+      # - name: Deploy to GitHub Pages
+      #   # id: deployment # not compulsory
+      #   uses: actions/deploy-pages@v4
+
+  deploy-app:
+    # Dependency on the previous job i.e. "build-app"
+    needs: build-app
+    
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./guess-number-game-app
+
+    permissions:
+      id-token: write
+
+    steps:
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
-
-  # deploy-app:
-  #   needs: build-app
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     id-token: write
-
-  #   defaults:
-  #     run:
-  #       working-directory: ./guess-number-game-app
-
-  #   steps:
-  #     - name: Deploy to GitHub Pages
-  #       uses: actions/deploy-pages@v4
 
