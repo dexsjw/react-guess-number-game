@@ -27,8 +27,10 @@ jobs:
         shell: bash # not compulsory
         working-directory: ./guess-number-game-app
 
+    # Permissions required for actions/deploy-pages
     permissions:
       id-token: write
+      pages: write
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
