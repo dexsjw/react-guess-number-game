@@ -28,10 +28,10 @@ jobs:
         working-directory: ./guess-number-game-app
 
     # Permissions required for actions/deploy-pages
-    permissions:
-      id-token: write
-      pages: write
-      # contents: read / write # not compulsory
+    # permissions:
+    #   id-token: write
+    #   pages: write
+    #   contents: read / write # not compulsory
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -86,6 +86,7 @@ jobs:
 
     permissions:
       id-token: write
+      pages: write
 
     steps:
       - name: Deploy to GitHub Pages
