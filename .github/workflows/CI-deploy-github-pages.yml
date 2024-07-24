@@ -22,10 +22,10 @@ jobs:
     runs-on: ubuntu-latest
 
     # Setting default directory to run commands
-    # defaults:
-    #   run:
-    #     shell: bash # not compulsory
-    #     working-directory: ./guess-number-game-app
+    defaults:
+      run:
+        shell: bash # not compulsory
+        working-directory: ./guess-number-game-app
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -52,21 +52,26 @@ jobs:
 
       - name: Install dependencies and build
         # Defining the directory to run commands in this step
-        working-directory: ./guess-number-game-app
+        # working-directory: ./guess-number-game-app
         run: |
           pwd
           npm ci
           npm run build
 
-  deploy-app:
-    needs: build-app
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: ./guess-number-game-app
-
-    steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
+
+  # deploy-app:
+  #   needs: build-app
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     id-token: write
+
+  #   defaults:
+  #     run:
+  #       working-directory: ./guess-number-game-app
+
+  #   steps:
+  #     - name: Deploy to GitHub Pages
+  #       uses: actions/deploy-pages@v4
 
