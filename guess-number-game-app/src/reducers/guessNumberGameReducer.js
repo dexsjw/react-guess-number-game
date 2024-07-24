@@ -8,7 +8,7 @@ export const initialGameState = {
 }
 
 function getRandomNumber() {
-    console.log("getRandomNumber called");
+    // console.log("getRandomNumber called");
     return Math.floor(Math.random() * 20 + 1);
 }
 
