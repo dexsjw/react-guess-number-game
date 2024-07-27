@@ -1,0 +1,3 @@
+Q1. Why cannot directly call setter function in newGameHandler()?
+A1. In this specific scenario we can because scoreHandler() is only calling setter function inside.
+    However sometimes there might be more logic inside scoreHandler() then we cannot do it.
